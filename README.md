@@ -11,6 +11,7 @@ learning
 ├── go
 ├── html_css
 ├── js_ts
+├── php
 ├── python
 ├── sql
 └── swift
@@ -23,6 +24,7 @@ learning
 - **``go``** - Go programming language.
 - **``html_css``** - courses, cheatsheets and small projects for HTML, CSS and browser JavaScript.
 - **``js_ts``** - JavaScript, TypeScript and their runtimes such as Node.js, Deno and Bun.
+- **``php``** - PHP programming language.
 - **``python``** - Python programming language.
 - **``sql``** - SQL and PostgreSQL related stuff.
 - **``swift``** - Swift programming languages.
