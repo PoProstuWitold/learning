@@ -1,5 +1,8 @@
 # PHP
+
 > Originally from **P**ersonal **H**ome**P**age
+
+> Currently known as **P**HP **H**ypertext **P**reprocessor
 
 ***[PHP](https://en.wikipedia.org/wiki/PHP)*** - a popular general-purpose scripting language especially suited to web development. Initially created by Rasmus Lerdorf in 1994, PHP has evolved significantly over the years. It is embedded in HTML and runs on the server, generating dynamic content on web pages. PHP powers many large-scale applications, including WordPress, Laravel and integrates easily with databases like MySQL, PostgreSQL, and SQLite. It's used in many open-source selfhosted apps such as Nextcloud.
 
