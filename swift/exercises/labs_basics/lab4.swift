@@ -3,24 +3,33 @@
 import Foundation
 
 func czyRokPrzestepny(_ rok: Int) -> Bool {
-    if rok % 4 == 0 {
-        if rok % 100 == 0 {
-            return rok % 400 == 0
-        }
-        return true
-    }
+	// jest podzielny przez 4, ale nie jest podzielny przez 100
+    if rok % 4 == 0 && rok % 100 != 0 {
+		return true
+	}
+	// jest podzielny przez 400
+	if rok % 400 == 0 {
+		return true
+	}
+
     return false
 }
 
 print("Podaj rok:")
 if let input = readLine(), let rok = Int(input) {
+	guard rok >= 0 else {
+		// fatalError("Rok musi być liczbą dodatnią.")
+		print("Rok musi być liczbą dodatnią.")
+		exit(1)
+	}
+
     if czyRokPrzestepny(rok) {
         print("\(rok) jest rokiem przestępnym.")
     } else {
         print("\(rok) nie jest rokiem przestępnym.")
     }
 } else {
-    print("Nieprawidłowy rok.")
+    print("Rok nie jest liczbą całkowitą.")
 }
 */
 
@@ -46,24 +55,26 @@ if let input = readLine(), let rok = Int(input), rok >= 2 && rok <= 3010 {
 import Foundation
 
 func obliczStypendium(zeSredniej srednia: Double) -> Int {
-    if srednia >= 4.5 {
-        return 200
-    } else if srednia >= 4.0 {
-        return 150
-    } else if srednia >= 3.0 {
-        return 100
-    } else {
-        return 0
+    switch srednia {
+		case 4.5...5.0:
+			return 200
+		case 4.0..<4.5:
+			return 150
+		case 3.0..<4.0:
+			return 100
+		default:
+			return 0
     }
 }
 
 print("Podaj średnią:")
-if let input = readLine(), let srednia = Double(input), srednia >= 0.0 && srednia <= 5.0 {
-    let stypendium = obliczStypendium(zeSredniej: srednia)
-    print("Stypendium: \(stypendium) zł")
-} else {
+guard let input = readLine(), let srednia = Double(input), srednia >= 0.0 && srednia <= 5.0 else {
     print("Nieprawidłowa średnia.")
+    exit(1)
 }
+
+let stypendium = obliczStypendium(zeSredniej: srednia)
+print("Stypendium: \(stypendium) zł")
 */
 
 // Zadanie 4.4 - Kalkulator
@@ -189,18 +200,22 @@ if let input = readLine(), let znak = input.first {
 /*
 import Foundation
 
-func plecZPeselu(peselNumber pesel: String) -> String {
-    guard pesel.count == 11, let cyfra = Int(pesel[pesel.index(pesel.startIndex, offsetBy: 9)].description) else {
+func plecZPeselu(numerPesel pesel: String) -> String {
+    let tylkoCyfry = pesel.allSatisfy { $0.isNumber }
+
+    guard pesel.count == 11, tylkoCyfry, 
+	let cyfra = Int(pesel[pesel.index(pesel.startIndex, offsetBy: 9)].description) else {
         return "Nieprawidłowy PESEL"
     }
     return cyfra % 2 == 0 ? "Kobieta" : "Mężczyzna"
 }
 
 print("Podaj PESEL:")
-if let pesel = readLine() {
-    let plec = plecZPeselu(peselNumber: pesel)
-    print("Płeć: \(plec)")
-} else {
+guard let pesel = readLine() else {
     print("Nieprawidłowy PESEL.")
+    exit(1)
 }
+
+let plec = plecZPeselu(numerPesel: pesel)
+print("Płeć: \(plec)")
 */
