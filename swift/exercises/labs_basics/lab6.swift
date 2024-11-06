@@ -39,39 +39,44 @@ func zadanie6_2() {
 
 // Zadanie 6.3
 func zadanie6_3() {
-    print("Podaj liczbę elementów tablicy:")
+	print("Podaj liczbę elementów tablicy:")
     guard let input = readLine(), let count = Int(input), count > 0 else {
         print("Nieprawidłowa liczba elementów.")
         return
     }
 
-    var tab = [Int]()
+	var tab = [Int]()
     for i in 0..<count {
-        print("Podaj element \(i):")
+        print("Podaj liczbę całkowitą na indeksie \(i):")
         guard let input = readLine(), let number = Int(input) else {
             print("Nieprawidłowa wartość. Przerwanie wprowadzania danych.")
             return
         }
         tab.append(number)
     }
-
-    print("Podaj liczbę do sprawdzenia:")
+	print("Tablica: \(tab)")
+	print("Podaj liczbę do sprawdzenia:")
     guard let input = readLine(), let number = Int(input) else {
         print("Nieprawidłowa liczba do sprawdzenia.")
         return
     }
 
+	var isFirstOrLast = false
+
     if number == tab.first {
         print("Liczba \(number) jest pierwszym elementem.")
-    } else {
-		print("Liczba \(number) nie jest pierwszym elementem.")
-	}
+		isFirstOrLast = true
+    }
 
     if number == tab.last {
         print("Liczba \(number) jest ostatnim elementem.")
-    } else {
-		print("Liczba \(number) nie jest ostatnim elementem.")
+		isFirstOrLast = true
+    }
+
+	if !isFirstOrLast {
+		print("Liczba \(number) nie jest ani pierwszym, ani ostatnim elementem.")
 	}
+
 }
 // zadanie6_3()
 
@@ -116,7 +121,7 @@ func zadanie6_4() {
 
 // Zadanie 6.5
 func zadanie6_5() {
-    print("Podaj liczbę elementów tablicy:")
+	print("Podaj liczbę elementów tablicy:")
     guard let input = readLine(), let count = Int(input), count > 0 else {
         print("Nieprawidłowa liczba elementów.")
         return
@@ -142,7 +147,7 @@ func zadanie6_5() {
 
 // Zadanie 6.6
 func zadanie6_6() {
-    print("Podaj liczbę elementów tablicy:")
+	print("Podaj liczbę elementów tablicy:")
     
     guard let input = readLine(), let count = Int(input), count > 0 else {
         print("Nieprawidłowa liczba elementów.")
@@ -162,8 +167,8 @@ func zadanie6_6() {
         tab.append(number)
     }
 
-    var longestIncreasing = [Int]() // Zmienna przechowująca najdłuższy podciąg rosnący
-    var currentIncreasing = [Int]() // Zmienna przechowująca aktualny podciąg rosnący
+    var longestIncreasing = [Int]() // Tablica przechowująca najdłuższy podciąg rosnący
+    var currentIncreasing = [Int]() // Tablica przechowująca aktualny podciąg rosnący
     
     // Przechodzimy przez elementy tablicy i budujemy najdłuższy rosnący podciąg
     for number in tab {
@@ -180,15 +185,13 @@ func zadanie6_6() {
     // Sprawdzamy końcowy podciąg
     longestIncreasing = currentIncreasing.count > longestIncreasing.count ? currentIncreasing : longestIncreasing
 
-    // Wyświetlamy wynik
-    // if longestIncreasing.isEmpty {
-    //     print("Brak podciągu rosnącego.")
-    // } else {
-    //     print("Najdłuższy podciąg rosnący: \(longestIncreasing)")
-    // }
-
 	// Zawsze będzie istniał podciąg rosnący, bo zawsze będzie istniał podciąg z jednym elementem
-	print("Najdłuższy podciąg rosnący: \(longestIncreasing)")
+	if longestIncreasing.count == 1 {
+		print("Nie znaleziono podciągu rosnącego.")
+	} else {
+		print("Najdłuższy podciąg rosnący: \(longestIncreasing)")
+	}
+
 }
 // zadanie6_6()
 
