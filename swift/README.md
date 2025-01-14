@@ -18,3 +18,5 @@
 - [Swift in 100 seconds by Fireship](https://www.youtube.com/watch?v=nAchMctX4YA)
 - [Swift Cheatsheet](https://koenig-media.raywenderlich.com/uploads/2020/12/RW-Swift-5.1-Cheatsheet-1.0.pdf)
 - [Swift Programming Tutorial – Full Course for Beginners by freeCodeCamp](https://www.youtube.com/watch?v=8Xg7E9shq0U)
+- [Swift.org Docs](https://www.swift.org/documentation/)
+- [Apple Developer - Swift](https://developer.apple.com/swift/)
