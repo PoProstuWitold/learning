@@ -18,7 +18,7 @@ func calculateAge() {
     }
     print("Masz \(currentYear - birthYear) lat.")
 }
-
+// calculateAge()
 
 // Lab 3: Łańcuchy znakowe
 //     String: Ciągi znaków jako struktura.
@@ -41,6 +41,7 @@ func countCharacter() {
     let count = string.filter { $0 == char }.count
     print(count > 0 ? "Znak '\(char)' występuje \(count) razy." : "Znak '\(char)' nie występuje w ciągu.")
 }
+// countCharacter()
 
 // Lab 4: Instrukcje warunkowe
 //     if, else if, else: Do prostych warunków.
@@ -60,6 +61,7 @@ func checkEven() {
         print("Liczba \(number) jest nieparzysta.")
     }
 }
+// checkEven()
 
 // Lab 5-7: Pętle i kolekcje
 //     Tablice (Array), zbiory (Set), słowniki (Dictionary): Przechowywanie wielu wartości.
@@ -84,6 +86,7 @@ func findMinMax() {
 
     print("Najmniejsza: \(numbers.min()!), Największa: \(numbers.max()!)")
 }
+// findMinMax()
 
 // Lab 8-9: Krotki i wyliczenia
 //     Krotki (tuples): Grupowanie wartości o różnych typach.
@@ -111,6 +114,7 @@ func checkWorkingDay() {
 
     print(day.isWorkingDay() ? "\(day.rawValue.capitalized) jest dniem roboczym." : "\(day.rawValue.capitalized) nie jest dniem roboczym.")
 }
+// checkWorkingDay()
 
 // Lab 10-11: Klasy i dziedziczenie
 //     Klasa: Referencyjny typ danych z właściwościami i metodami.
@@ -138,6 +142,12 @@ class Rectangle {
     }
 }
 
+func testRectangle() {
+	let rectangle = Rectangle(length: 5, width: 3)
+	rectangle.display()
+}
+// testRectangle()
+
 // Lab 12: Protokoły
 //     Protokoły: Określają wymagane właściwości i metody dla klas, struktur i wyliczeń.
 //     Zastosowanie: Polimorfizm, abstrakcja.
@@ -161,3 +171,9 @@ class Circle: Shape {
         print("Promień: \(radius), Pole: \(String(format: "%.2f", area()))")
     }
 }
+
+func testCircle() {
+	let circle = Circle(radius: 5)
+	circle.display()
+}
+// testCircle()
