@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+
+# Edytory/IDE
+*.swp
+*.swo
+*.idea/
+.vscode/
+
+# Dokumentacja
+README.md
+
+# Pliki systemowe
+.DS_Store
+Thumbs.db
+
+# Binarki i buildy
+server
+*.exe
+*.out
+*.test
+*.log
+
+# Cache Go
+/pkg
+/bin
+
+img
