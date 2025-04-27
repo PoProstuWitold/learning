@@ -1,5 +1,15 @@
 # Weather App
-Prosta aplikacja napisan w **[Go](https://go.dev/)** z użyciem **[OpenWeatherMap](https://openweathermap.org)**.
+Prosta aplikacja napisana w **[Go](https://go.dev/)** z użyciem **[OpenWeatherMap](https://openweathermap.org)**.
+
+## Obraz Dockera
+
+Repozytorium DockerHub:  
+**[hub.docker.com/r/poprostuwitold/weather-app](https://hub.docker.com/r/poprostuwitold/weather-app)**
+
+Repozytorium GitHub (z kodem źródłowym i Dockerfile):  
+**[github.com//PoProstuWitold/learning/tree/main/go/exercises/weather-app](https://github.com/PoProstuWitold/learning/tree/main/go/exercises/weather-app)**
+
+---
 
 ## Autor
 
@@ -16,10 +26,10 @@ Działa jako kontener Dockera, loguje dane startowe i udostępnia prosty interfe
 
 ---
 
-## Funkcjonalność
+## Funkcjonalności
 
 - Logi startowe (data, autor, port)
-- Wybór kraju z listy (kod ISO + pełna nazwa)
+- Wybór kraju z listy (kod [ISO 3166-1 alfa-2](https://pl.wikipedia.org/wiki/ISO_3166-1_alfa-2) + pełna nazwa)
 - Wpisywanie miasta ręcznie
 - Wyświetlanie: lokalizacji, temperatury, opisu pogody, wiatru, wilgotności, ciśnienia itd.
 - Responsywny frontend HTML + JS (bez frameworków i bibliotek)
@@ -34,10 +44,11 @@ Aplikacja została opakowana w kontener Dockera z wykorzystaniem **wieloetapoweg
 
 ### Dockerfile – cechy:
 - builder: `golang:1.24-alpine`
-- finalny obraz: `alpine:3.19`
+- finalny obraz: `alpine:3.21`
 - `HEALTHCHECK` dla monitorowania kontenera
 - `LABEL` zgodny ze specyfikacją [OCI](https://en.wikipedia.org/wiki/Open_Container_Initiative)
 - uruchamianie kontenera jako nie-root (użytkowkik o nazwie ``witold``)
+
 ---
 
 ## Część obowiązkowa
@@ -82,6 +93,8 @@ Warstwy: 5, Rozmiar: 14646875
 
 Rozmiar obrazu wynosi około ``14.6 MB``.
 
+---
+
 ## Część dodatkowa/nieobowiązkowa
 
 ### Podstawowe wymagania i wariant drugi (max. +50%)
@@ -95,22 +108,14 @@ Sprawdzanie podatności na zagrożenia oraz realizacja wymagań wariantu drugieg
 
 ---
 
-## Obraz Docker
-
-Repozytorium DockerHub:  
-**[hub.docker.com/r/poprostuwitold/weather-app](https://hub.docker.com/r/poprostuwitold/weather-app)**
-
-Repozytorium GitHub (z kodem źródłowym i Dockerfile):  
-**[github.com//PoProstuWitold/learning/tree/main/go/exercises/weather-app](https://github.com/PoProstuWitold/learning/tree/main/go/exercises/weather-app)**
-
----
-
 ## Buildx – konfiguracja
 
 Tworzenie i aktywowanie buildera:
 ```bash
 docker buildx create --name multiarch-builder --use
 ```
+
+---
 
 ## Budowanie i publikacja obrazu z cache i multiarch
 ```bash
@@ -122,6 +127,8 @@ docker buildx build \
   --cache-to=type=registry,ref=poprostuwitold/weather-app:cache,mode=max \
   .
 ```
+
+---
 
 ## Sprawdzenie platform w manifeście
 ```bash
@@ -140,9 +147,14 @@ Manifests:
   Platform:    linux/arm64
 ```
 
+---
+
 ## Cache – potwierdzenie działania
-Pierwsze budowanie: wolniejsze
-Drugie budowanie: błyskawiczne (cache hit)
+Pierwsze budowanie: wolniejsze.
+
+Drugie budowanie: błyskawiczne (cache hit).
+
+---
 
 ## Docker Scout – analiza podatności
 ```bash
@@ -164,6 +176,8 @@ Wynik:
   Base image │  alpine:3                           │    0C     0H     0M     0L  
 ```
 Obraz nie zawiera żadnych podatności. A przynajmniej żadne nie zostały wykryte :)
+
+---
 
 ## Podsumowanie
 Aplikacja została zbudowana jako multiarch z użyciem cache inline + exporter registry.
