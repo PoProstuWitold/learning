@@ -47,7 +47,7 @@ Aplikacja została opakowana w kontener Dockera z wykorzystaniem **wieloetapoweg
 - finalny obraz: `alpine:3.21`
 - `HEALTHCHECK` dla monitorowania kontenera
 - `LABEL` zgodny ze specyfikacją [OCI](https://en.wikipedia.org/wiki/Open_Container_Initiative)
-- uruchamianie kontenera jako nie-root (użytkowkik o nazwie ``witold``)
+- uruchamianie kontenera jako nie-root (użytkownik o nazwie ``witold``)
 
 ---
 
