@@ -1,6 +1,79 @@
 # Weather App
 Prosta aplikacja napisana w **[Go](https://go.dev/)** z użyciem **[OpenWeatherMap](https://openweathermap.org)**.
 
+---
+
+<details>
+<summary><strong>Zadanie 2 – GitHub Actions (build + scan + deploy)</strong></summary>
+
+### Treść zadania
+Pipeline w GitHub Actions, który:
+- Buduje obraz kontenera z aplikacją pogodową (`weather-app`)
+- Wspiera `linux/amd64` i `linux/arm64`
+- Wykorzystuje cache (registry backend)
+- Skanuje obraz na obecność CVE (Docker Scout)
+- Publikuje do `ghcr.io`
+
+---
+
+### Struktura repozytorium
+go/
+├── exercises/
+│ └── weather-app/
+│ ├── Dockerfile
+│ ├── main.go
+│ ├── go.mod
+│ ├── public/
+│ └── README.md
+
+---
+
+### Workflow GitHub Actions
+
+Plik `.github/workflows/docker.yml` zawiera:
+- Budowanie dla `linux/amd64` i `linux/arm64` za pomocą `docker buildx`
+- Wykorzystanie cache push/pull (`--cache-to` i `--cache-from`)
+- Test CVE przez Docker Scout (`docker/scout-action@v1`)
+- Publikacja do `ghcr.io` tylko, gdy nie ma błędów CRITICAL/HIGH
+
+---
+
+### Sekrety wymagane w repo:
+- ``DOCKERHUB_TOKEN`` – token z Docker Hub do cache push/pull
+- ``GITHUB_TOKEN`` – wbudowany (automatyczny) do GHCR
+
+---
+
+### CVE Scan
+Skan wykonywany przez Docker Scout:
+- Jeśli znajdzie luki ``CRITICAL`` lub ``HIGH``, przerywa pipeline (fail-on-severity)
+- Raport jest dostępny w logach workflow
+
+---
+
+### Tagowanie obrazów
+- ``ghcr.io/poprostuwitold/weather-app:latest`` – aktualna wersja aplikacji
+- ``poprostuwitold/weather-app:cache`` – tylko dla mechanizmu cacheowania buildx
+
+---
+
+### Przykład działania pipeline
+- Wystarczy push do main
+- Jeśli wszystko OK – obraz pojawia się na: ``https://ghcr.io/poprostuwitold/weather-app``
+
+---
+
+### Uzasadnienie użycia Docker Scout
+Wybrałem Docker Scout, ponieważ:
+- Działa natywnie w GitHub Actions
+- Jest dobrze zintegrowany z ekosystemem Docker/BuildKit
+- Oferuje dokładne wyniki bez potrzeby instalacji dodatkowych binarek (jak trivy)
+- Pozwala na selektywne zakończenie (fail-on-severity) przy konkretnych poziomach ryzyka
+
+</details>
+
+---
+
 ## Obraz Dockera
 
 Repozytorium DockerHub:  

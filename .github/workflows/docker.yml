@@ -1,0 +1,59 @@
+name: Build and Push Weather App
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: ghcr.io/poprostuwitold/weather-app
+  CACHE_IMAGE: poprostuwitold/weather-app:cached
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log in to DockerHub (for cache)
+        uses: docker/login-action@v3
+        with:
+          username: poprostuwitold
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push with Cache
+        uses: docker/build-push-action@v5
+        with:
+          context: ./go/exercises/weather-app
+          file: ./go/exercises/weather-app/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+          cache-from: type=registry,ref=${{ env.CACHE_IMAGE }}
+          cache-to: type=registry,ref=${{ env.CACHE_IMAGE }},mode=max
+          provenance: false
+
+      - name: Run vulnerability scan with Docker Scout
+        uses: docker/scout-action@v1
+        with:
+          image: ${{ env.IMAGE_NAME }}:latest
+          only-severities: critical,high
+          dockerhub-user: poprostuwitold
+        continue-on-error: false
