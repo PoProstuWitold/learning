@@ -53,6 +53,7 @@ jobs:
       - name: Run vulnerability scan with Docker Scout
         uses: docker/scout-action@v1
         with:
+          command: cves
           image: ${{ env.IMAGE_NAME }}:latest
           only-severities: critical,high
           dockerhub-user: poprostuwitold
